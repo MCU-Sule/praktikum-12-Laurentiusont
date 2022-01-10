@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Laurentius Gusti Ontoseno Panata Yudha-2172028">
+    <title>Soal 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        #e{
+            margin: auto; 
+            width:300px;
+            margin-bottom: 30px;
+        }
+        #b{
+            margin: auto;
+            text-align: center;
+            background-color: rgb(153,241,207);
+            font-weight:bolder;
+        }
+        #d{
+            font-weight:bolder;
+            font-size: xx-large;
+        }
+        div {
+            margin-bottom: 20px;
+        }
+        label {
+            margin-right: 30px;
+        }
+        p{
+            text-align: right;
+            margin:0cm;
+        }
+    </style>
+</head>
+<body>
+    <div id="e">
+    <fieldset>
+        <legend>City</legend>
+        <label for="browser">Name </label>
+        <input list="a" name="browser" id="c">
+        <datalist id="a">
+
+        </datalist>
+        <p><input type="submit" value="Submit Query" onclick="klik()"></p>
+    </fieldset>
+    </div>
+        
+        <div id="b"> </div>
+        <script>
+                $.getJSON ("cityList.json", (result) => {
+                    console.log(result.city.length)
+                    for(let i=0; i<result.city.length; i++){
+                $("#a").append("<option value='"+ result.city[i].name + "'>")
+                }
+                })
+                
+            function klik(){
+                document.querySelector("#b").innerHTML=""
+                $.getJSON ("cityList.json", (result) => {
+                    let pil=document.querySelector("#c").value
+                    console.log(pil);
+                    for(let i=0; i<result.city.length; i++){
+                    if (pil==result.city[i].name){
+                        $("#b").append("<div id=d>"+result.city[i].name + " ("+result.city[i].id +")</div>")
+                        $("#b").append("<div> Country "+ result.city[i].country +"</div>")
+                        $("#b").append("<div> Coordinates (lat,lon): "+result.city[i].coord.lat+", "+result.city[i].coord.lon+"</div>")
+                    }
+                }
+                    
+                })
+            }
+        </script>
+</body>
+</html>
